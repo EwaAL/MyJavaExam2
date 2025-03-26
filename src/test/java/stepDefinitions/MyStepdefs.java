@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MyStepdefs {
 // This class contains the step definitions as written in the feature file
 //
-// driver - the Webdriver for the fejk- and the basketballengland websites
+// driver - the browser for the fejk- and the basketballengland websites
 // fillData - array with two columns that contains user data.
 //            First column: contains the identifier for each field
 //            in the form at the basketballengland website where
@@ -49,7 +49,7 @@ public class MyStepdefs {
 
         UserInfo user = new UserInfo();
         fillData = user.collectRandomUserInfo(driver);
-        Thread.sleep(4000);
+        Thread.sleep(1000);
     }
 //***************************************************************************
     // Navigates to the basketball webpage for creating an account
@@ -63,7 +63,7 @@ public class MyStepdefs {
 //***************************************************************************
     // Fills in the form for creating an account at the website
     @And("I have filled in the form")
-    public void iHaveFilledInTheForm() {
+    public void iHaveFilledInTheForm() throws InterruptedException {
 
         doIt = new FormActions();
         doIt.fillForm(driver, fillData, "");
@@ -88,15 +88,16 @@ public class MyStepdefs {
         String selector = "body > div > div.page-content-wrapper > div > div " +
                 "> div.btn-group > a";
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        // the program  waits until the element is properly loaded
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.cssSelector(selector)));
 
         String actual = doIt.getConfirmation(selector);
         String expected = "GO TO MY LOCKER";
+        Thread.sleep(1000);
 
         assertEquals(expected, actual);
-        Thread.sleep(4000);
         driver.close();
     }
 //***************************************************************************
@@ -104,7 +105,7 @@ public class MyStepdefs {
     //
     // error - specifies which error to create
     @And("I have filled in the form with an error with {}")
-    public void iHaveFilledInTheFormWithAnErrorWith(String error) {
+    public void iHaveFilledInTheFormWithAnErrorWith(String error) throws InterruptedException {
         doIt = new FormActions();
         doIt.fillForm(driver, fillData, error);
     }
@@ -132,8 +133,10 @@ public class MyStepdefs {
                     "> span > span");
             default -> "";
         };
+
+        Thread.sleep(2000);
+
         assertEquals(expected, actual);
-        Thread.sleep(6000);
         driver.close();
     }
 //*********************************************************************************

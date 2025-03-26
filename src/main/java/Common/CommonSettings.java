@@ -8,10 +8,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class CommonSettings {
     // This class contains settings
 //********************************************************************
+    // Sets the browser type
+    //
+    // useBrowser - contains the name of the browser to use
     public WebDriver setBrowser(String useBrowser) {
-        // Sets the browser type
-        //
-        // useBrowser - contains the name of the browser to use
+
         return switch (useBrowser) {
             case "Firefox" -> new FirefoxDriver();
             case "Edge" -> new EdgeDriver();
